@@ -88,6 +88,11 @@ const ContainerConteudo = styled.div`
         height: 42px;
 
         margin-right: 0.5em;
+
+        &:hover {
+        background-color: #ae87ed;
+        transition: 1s;
+    }
     }
 
     .logout button {
@@ -98,6 +103,11 @@ const ContainerConteudo = styled.div`
         
         width: 44px;
         height: 44px;
+
+        &:hover {
+        background-color: #ae87ed;
+        transition: 1s;
+    }
     }
 
     .titulo {

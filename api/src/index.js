@@ -19,27 +19,16 @@ app.post('/matricula', async (req, resp) => {
     try {
         let { nome, chamada, curso, turma } = req.body;
 
-        if (!nome || nome == '')
-            return resp.send({ erro: 'Campo Nome é obrigatório!' });
+        if (nome == '' || chamada == '' || curso == '' || turma == '')
+            return resp.send({ erro: ' Preencha todos os campos!' })
 
-        if (!chamada || chamada == '')
-            return resp.send({ erro: 'Campo Chamada é obrigatório!' });
+        if (nome.length < 4 || curso.length < 4 || turma.length < 4)
+            return resp.send({ erro: ' Insira mais que 4 caracteres!' });
 
-        if (!curso || curso == '')
-            return resp.send({ erro: 'Campo Curso é obrigatório!' });
-        
-        if (!turma || turma == '')
-            return resp.send({ erro: 'Campo Turma é obrigatório!' });
-
-
-        let obrigatorioTurma = await db.tb_matricula.findOne({ where: { nm_turma: turma } });
-
-        let obrigatorioChamada = await db.tb_matricula.findOne({ where: { nr_chamada: chamada } });
-        if (obrigatorioChamada != null && obrigatorioTurma != null)
+        if (chamada != null && turma != null)
             return resp.send({ erro: 'O número de Chamada já existe nesta turma!' });
 
-
-        if (Math.sign(chamada) === Math.sign(-1))
+        if (chamada <= 0)
             return resp.send({ erro: ' Números negativos não são permitidos' });
         
 
@@ -62,28 +51,17 @@ app.put('/matricula/:id', async (req, resp) => {
         let { nome, chamada, curso, turma } = req.body;
         let { id } = req.params;
 
-        if (!nome || nome == '')
-        return resp.send({ erro: 'Campo Nome é obrigatório!' });
+        if (nome == '' || chamada == '' || curso == '' || turma == '')
+            return resp.send({ erro: ' Preencha todos os campos!' })
 
-        if (!chamada || chamada == '')
-            return resp.send({ erro: 'Campo Chamada é obrigatório!' });
+        if (nome.length < 4 || curso.length < 4 || turma.length < 4)
+            return resp.send({ erro: ' Insira mais que 4 caracteres!' });
 
-        if (!curso || curso == '')
-            return resp.send({ erro: 'Campo Curso é obrigatório!' });
-        
-        if (!turma || turma == '')
-            return resp.send({ erro: 'Campo Turma é obrigatório!' });
-
-
-        let obrigatorioTurma = await db.tb_matricula.findOne({ where: { nm_turma: turma } });
-
-        let obrigatorioChamada = await db.tb_matricula.findOne({ where: { nr_chamada: chamada } });
-        if (obrigatorioChamada != null && obrigatorioTurma != null)
+        if (chamada != null && turma != null)
             return resp.send({ erro: 'O número de Chamada já existe nesta turma!' });
-
-            
-        if (Math.sign(chamada) === Math.sign(-1))
-            return resp.send({ erro: ' Número negativos não são permitidos' });
+  
+        if (chamada <= 0)
+            return resp.send({ erro: ' Números negativos não são permitidos' });
 
 
         let r = await db.tb_matricula.update(
