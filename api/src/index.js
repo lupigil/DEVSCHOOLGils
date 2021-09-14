@@ -25,7 +25,9 @@ app.post('/matricula', async (req, resp) => {
         if (nome.length < 4 || curso.length < 4 || turma.length < 4)
             return resp.send({ erro: ' Insira mais que 4 caracteres!' });
 
-        if (chamada != null && turma != null)
+        let chamadaRepetida = await db.tb_matricula.findOne({ where: { nr_chamada: chamada } })
+        let turmaRepetida = await db.tb_matricula.findOne({ where: { nm_turma: turma } })
+        if (chamadaRepetida != null && turmaRepetida != null)
             return resp.send({ erro: 'O número de Chamada já existe nesta turma!' });
 
         if (chamada <= 0)
@@ -57,7 +59,9 @@ app.put('/matricula/:id', async (req, resp) => {
         if (nome.length < 4 || curso.length < 4 || turma.length < 4)
             return resp.send({ erro: ' Insira mais que 4 caracteres!' });
 
-        if (chamada != null && turma != null)
+        let chamadaRepetida = await db.tb_matricula.findOne({ where: { nr_chamada: chamada } })
+        let turmaRepetida = await db.tb_matricula.findOne({ where: { nm_turma: turma } })
+        if (chamadaRepetida != null && turmaRepetida != null)
             return resp.send({ erro: 'O número de Chamada já existe nesta turma!' });
   
         if (chamada <= 0)
