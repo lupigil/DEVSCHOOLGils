@@ -37,7 +37,7 @@ export default function Conteudo() {
     }
 
     async function inserir() {
-        if (idAlterando != 0) {
+        if (idAlterando !== 0) {
             let alter = await api.alterarAluno(idAlterando, aluno, chamada, curso, turma);
             
             if (alter.erro)
